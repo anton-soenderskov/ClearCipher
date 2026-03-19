@@ -1,0 +1,1 @@
+const char *VALID_CHARACTERS = "abcdefghijklmnopqrstuvwxyz";
