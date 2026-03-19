@@ -4,6 +4,7 @@
 #include "cipher_parser.h"
 #include "caesar.h"
 #include "vigenere.h"
+#include "vernam.h"
 
 int parse_cipher(const char *arg)
 {
@@ -30,7 +31,11 @@ int parse_cipher(const char *arg)
     }
     else if (strcmp(arg, "vernam") == 0)
     {
-        return STATUS_SUCCESS;
+        if (start_vernam() == 0)
+        {
+            return STATUS_SUCCESS;
+        }
+        return STATUS_ERROR;
     }
 
     return STATUS_ERROR;
