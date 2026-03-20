@@ -47,7 +47,7 @@ int run_vigenere(void)
     char out[MAX_TEXT_LENGTH];
 
     read_line("  Text: ", text, sizeof(text));
-    read_line("  Key:  ", key, sizeof(key));
+    read_line("  Key: ", key, sizeof(key));
 
     int choice = read_choice("Encrypt", "Decrypt");
     int status = (choice == 1)
@@ -74,7 +74,7 @@ int run_vernam(void)
     if (choice == 1)
     {
         read_line("  Text: ", text, sizeof(text));
-        read_line("  Key:  ", key, sizeof(key));
+        read_line("  Key: ", key, sizeof(key));
 
         size_t text_len = strlen(text);
         if (strlen(key) != text_len)
@@ -94,7 +94,7 @@ int run_vernam(void)
     else
     {
         read_line("  Ciphertext (hex): ", text, sizeof(text));
-        read_line("  Key:              ", key, sizeof(key));
+        read_line("  Key: ", key, sizeof(key));
 
         size_t byte_len;
         unsigned char *bytes = vernam_hex_to_bytes(text, &byte_len);
