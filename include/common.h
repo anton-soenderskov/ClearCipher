@@ -4,6 +4,4 @@
 #define STATUS_ERROR -1
 #define STATUS_SUCCESS 0
 
-#define VALID_CHARACTERS "abcdefghijklmnopqrstuvwxyz";
-
 #endif

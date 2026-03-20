@@ -1,10 +1,9 @@
 #ifndef CAESAR_H
 #define CAESAR_H
 
-#define MAX_TEXT_LENGTH 1000
+#include <stddef.h>
 
-int start_caesar(void);
-int caesar_encrypt(char *text, int shift);
-int caesar_decrypt(char *text, int shift);
+int caesar_encrypt(const char *text, int shift, char *out, size_t out_size);
+int caesar_decrypt(const char *text, int shift, char *out, size_t out_size);
 
-#endif
+#endif /* CAESAR_H */

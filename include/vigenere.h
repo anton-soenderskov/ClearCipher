@@ -1,10 +1,9 @@
 #ifndef VIGENERE_H
 #define VIGENERE_H
 
-#define MAX_TEXT_LENGTH 1000
+#include <stddef.h>
 
-int start_vigenere(void);
-int vigenere_encrypt(char *text, char *key);
-int vigenere_decrypt(char *text, char *key);
+int vigenere_encrypt(const char *text, const char *key, char *out, size_t out_size);
+int vigenere_decrypt(const char *text, const char *key, char *out, size_t out_size);
 
-#endif
+#endif /* VIGENERE_H */

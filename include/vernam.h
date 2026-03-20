@@ -1,11 +1,12 @@
 #ifndef VERNAM_H
 #define VERNAM_H
 
-#define MAX_TEXT_LENGTH 1000
+#include <stddef.h>
 
-#include <ctype.h>
+int vernam_encrypt(const char *text, size_t len, const char *key,
+                   char *out, size_t out_size);
+int vernam_decrypt(const unsigned char *bytes, size_t len, const char *key,
+                   char *out, size_t out_size);
+unsigned char *vernam_hex_to_bytes(const char *hex, size_t *out_len);
 
-int start_vernam(void);
-int vernam_cipher(char *text, size_t len, char *key, char *option);
-
-#endif
+#endif /* VERNAM_H */

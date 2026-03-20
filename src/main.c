@@ -1,44 +1,55 @@
 #include <stdio.h>
+#include <string.h>
 #include <stdbool.h>
 #include <unistd.h>
 
 #include "common.h"
-#include "cipher_parser.h"
+#include "runner.h"
+#include "ui.h"
 
 static void print_help(const char *prog_name)
 {
     printf("Usage: %s [options]\n\n", prog_name);
-    printf("Options:\n");
     printf("  -h             Show this help message\n");
     printf("  -l             List available ciphers\n");
-    printf("  -s <cipher>    Try a cipher\n");
-    printf("  -r <cipher>    Read about a cipher\n");
+    printf("  -s <cipher>    Run a cipher directly\n");
+    printf("  (none)         Launch interactive TUI\n");
 }
 
 static void list_ciphers(void)
 {
     printf("Available ciphers:\n");
-    printf("  - Caesar Cipher\n");
-    printf("  - Vigenère Cipher\n");
-    printf("  - Vernam Cipher (One-Time Pad)\n");
+    printf("  caesar    Caesar Cipher\n");
+    printf("  vigenere  Vigenere Cipher\n");
+    printf("  vernam    Vernam Cipher (One-Time Pad)\n");
+}
+
+static int run_cipher_by_name(const char *name)
+{
+    if (strcmp(name, "caesar") == 0)
+        return run_caesar();
+    if (strcmp(name, "vigenere") == 0)
+        return run_vigenere();
+    if (strcmp(name, "vernam") == 0)
+        return run_vernam();
+    fprintf(stderr, "Unknown cipher: %s\n", name);
+    return STATUS_ERROR;
 }
 
 int main(int argc, char *argv[])
 {
-
     if (argc == 1)
     {
-        print_help(argv[0]);
+        run_ui();
         return STATUS_SUCCESS;
     }
 
-    int status = 0;
     int opt;
     bool h_set = false;
     bool l_set = false;
     bool s_set = false;
-    bool r_set = false;
-    while ((opt = getopt(argc, argv, "hls:r:")) != -1)
+
+    while ((opt = getopt(argc, argv, "hls:")) != -1)
     {
         switch (opt)
         {
@@ -51,32 +62,17 @@ int main(int argc, char *argv[])
         case 's':
             s_set = true;
             break;
-        case 'r':
-            r_set = true;
-            break;
         default:
             break;
         }
     }
 
     if (h_set)
-    {
         print_help(argv[0]);
-    }
-
     if (l_set)
-    {
         list_ciphers();
-    }
-
     if (s_set)
-    {
-        status = parse_cipher(optarg);
-        if (status == 1)
-        {
-            return STATUS_ERROR;
-        }
-    }
+        return run_cipher_by_name(optarg);
 
     return STATUS_SUCCESS;
 }
