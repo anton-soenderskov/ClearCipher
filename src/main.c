@@ -22,6 +22,7 @@ static void list_ciphers(void)
     printf("  caesar    Caesar Cipher\n");
     printf("  vigenere  Vigenere Cipher\n");
     printf("  vernam    Vernam Cipher (One-Time Pad)\n");
+    printf("  des       Data Encryption Standard (DES)\n");
 }
 
 static int run_cipher_by_name(const char *name)
@@ -32,6 +33,8 @@ static int run_cipher_by_name(const char *name)
         return run_vigenere();
     if (strcmp(name, "vernam") == 0)
         return run_vernam();
+    if (strcmp(name, "des") == 0)
+        return run_des();
     fprintf(stderr, "Unknown cipher: %s\n", name);
     return STATUS_ERROR;
 }

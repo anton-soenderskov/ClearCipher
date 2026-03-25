@@ -96,9 +96,10 @@ static const char *MENU_ITEMS[] = {
     "Caesar Cipher",
     "Vigenere Cipher",
     "Vernam Cipher (One-Time Pad)",
+    "Data Encryption Standard (DES)",
     "Quit",
 };
-#define MENU_COUNT 4
+#define MENU_COUNT 5
 
 /* Runner functions indexed to match MENU_ITEMS */
 typedef int (*cipher_runner_fn)(void);
@@ -106,6 +107,7 @@ static const cipher_runner_fn RUNNERS[] = {
     run_caesar,
     run_vigenere,
     run_vernam,
+    run_des,
 };
 
 /* ── Rendering ───────────────────────────────────────────────────────────── */

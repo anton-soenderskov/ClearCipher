@@ -5,8 +5,14 @@ ClearCipher is a hands-on, interactive CLI program (written in C) that demonstra
 Currently implemented:
 - Caesar Cipher
 - Vigenère Cipher  
-Planned / stubbed:
 - Vernam Cipher (One-Time Pad)
+- DES
+Planned / stubbed:
+- ChaCha20
+- Salsa20
+- AES
+- BLAKE3
+- HMAC
 
 ---
 
@@ -21,6 +27,10 @@ Planned / stubbed:
 ## Disclaimer (Read this first)
 
 This project is for **educational purposes**. The ciphers implemented here are **not secure** for protecting real data. If you need real-world cryptography, use well-reviewed libraries (e.g., libsodium, OpenSSL) and modern authenticated encryption schemes.
+
+
+AES is based on https://csrc.nist.gov/pubs/fips/198-1/final
+HMAC is based on https://csrc.nist.gov/pubs/fips/198-1/final
 
 ---
 
@@ -94,10 +104,9 @@ Both Caesar and Vigenère implementations print verbose “character mapping” 
 
 ## Roadmap / Ideas
 
-- Implement Vernam (One-Time Pad) properly (including key requirements and UX).
-- Add non-interactive mode (flags for plaintext/key/shift) for scripting.
 - Add unit tests (and CI) to validate encryption/decryption correctness.
-- Add more ciphers (Affine, Rail Fence, Playfair, etc.) with explanations.
+- Add more ciphers (ChaCha20, Salsa20, AES, etc.) with explanations.
+- Improve UI
 
 ---
 

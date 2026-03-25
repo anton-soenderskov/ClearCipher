@@ -8,6 +8,7 @@
 #include "vigenere.h"
 #include "vernam.h"
 #include "constants.h"
+#include "des.h"
 
 int run_caesar(void)
 {
@@ -119,6 +120,67 @@ int run_vernam(void)
             fprintf(stderr, "  Error during decryption.\n");
             return EXIT_FAILURE;
         }
+        printf("\n  Decrypted: %s\n", out);
+    }
+
+    return EXIT_SUCCESS;
+}
+
+int run_des(void)
+{
+    char text[MAX_TEXT_LENGTH];
+    int choice = read_choice("Encrypt", "Decrypt");
+
+    if (choice == 1)
+    {
+        read_line("  Text: ", text, sizeof(text));
+
+        uint8_t out[MAX_TEXT_LENGTH];
+
+        if (des_encrypt(text, out, sizeof(out)) != EXIT_SUCCESS)
+        {
+            fprintf(stderr, "  Error during encryption.\n");
+            return EXIT_FAILURE;
+        }
+
+        size_t text_len = strlen(text);
+        size_t blocks = (text_len + 7) / 8;
+        size_t out_len = blocks * 8;
+
+        printf("\n  Encrypted (hex): ");
+        for (size_t i = 0; i < out_len; i++)
+        {
+            printf("%02X", out[i]);
+        }
+        printf("\n");
+    }
+    else
+    {
+        char key_str[MAX_TEXT_LENGTH];
+
+        read_line("  Ciphertext (hex): ", text, sizeof(text));
+        read_line("  Key (16 hex characters): ", key_str, sizeof(key_str));
+
+        uint64_t key64 = strtoull(key_str, NULL, 16);
+
+        size_t byte_len;
+        unsigned char *bytes = vernam_hex_to_bytes(text, &byte_len);
+        if (bytes == NULL)
+        {
+            fprintf(stderr, "  Error: invalid hex input.\n");
+            return EXIT_FAILURE;
+        }
+
+        char out[MAX_TEXT_LENGTH];
+
+        int status = des_decrypt(bytes, byte_len, key64, out, sizeof(out));
+        free(bytes);
+        if (status != EXIT_SUCCESS)
+        {
+            fprintf(stderr, "  Error during decryption.\n");
+            return EXIT_FAILURE;
+        }
+
         printf("\n  Decrypted: %s\n", out);
     }
 
